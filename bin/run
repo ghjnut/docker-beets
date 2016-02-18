@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+[[ "$TRACE" ]] && set -x
+set -eu -o pipefail
+
+source .env
+
+docker run \
+	--user "$(id -u):$(id -g)" \
+	--volumes-from deluged:ro \
+	--volume "$PWD/data/clean:/clean" \
+	--volume "$PWD/config/beets:$HOME/.config/beets" \
+	--workdir /data/downloads/completed \
+	--env HOME \
+	--interactive \
+	--tty \
+	--rm \
+	tianon/beets \
+		beet import -i ./
