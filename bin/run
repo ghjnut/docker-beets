@@ -9,10 +9,11 @@ docker run \
 	--volumes-from deluged:ro \
 	--volume "$PWD/data/clean:/clean" \
 	--volume "$PWD/config/beets:$HOME/.config/beets" \
+	--volume /etc/localtime:/etc/localtime:ro \
 	--workdir /data/downloads/completed \
 	--env HOME \
 	--interactive \
 	--tty \
 	--rm \
-	tianon/beets \
-		beet import -i ./
+	beet \
+		import -i ./
