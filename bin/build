@@ -4,4 +4,7 @@ set -eu -o pipefail
 
 source .env
 
-docker build --tag=beet .
+docker build \
+  --build-arg BEETS_VERSION \
+  --tag=beets:${BEETS_VERSION} \
+    .

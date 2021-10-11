@@ -1,6 +1,6 @@
-FROM python:2
+FROM python:3.10
 
-ENV BEETS_VERSION 1.3.17
+ARG BEETS_VERSION
 
 # necessary for handling encoding
 ENV LANG C.UTF-8
