@@ -1,5 +1,10 @@
 directory: /clean
+plugins: duplicates edit
 import:
+  log: /clean/log
+  resume: yes
   copy: yes
   write: yes
-plugins: edit
+  incremental: yes
+  incremental_skip_later: no
+  duplicate_action: ask
