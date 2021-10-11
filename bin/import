@@ -4,6 +4,12 @@ set -eu -o pipefail
 
 source .env
 
+# example args
+#    import -I "/data/downloads/completed/Robert Bradley's Blackwater Surprise - Robert Bradley's Blackwater Surprise"
+#    rm -d bradley
+#    import /data/downloads/completed
+#    import --flat -I "/data/downloads/completed/James - 2001 - Pleased To Meet You [FLAC]"
+
 docker run \
 	--user "$(id -u):$(id -g)" \
 	--volumes-from deluged:ro \
@@ -15,5 +21,5 @@ docker run \
 	--interactive \
 	--tty \
 	--rm \
-	beet \
-		import -i ./
+	--entrypoint /bin/bash \
+    beets:${BEETS_VERSION}

@@ -4,16 +4,22 @@ set -eu -o pipefail
 
 source .env
 
+# example args
+#    import -I "/data/downloads/completed/Robert Bradley's Blackwater Surprise - Robert Bradley's Blackwater Surprise"
+#    rm -d bradley
+#    import /data/downloads/completed
+#    import --flat -I "/data/downloads/completed/James - 2001 - Pleased To Meet You [FLAC]"
+
 docker run \
-	--volumes-from deluged:ro \
-	--volume "$PWD/data/clean:/clean" \
-	--volume "$PWD/config/beets:$HOME/.config/beets" \
-	--volume /etc/localtime:/etc/localtime:ro \
-	--workdir /data/downloads/completed \
-	-p 8337:8337 \
-	--env HOME \
-	--interactive \
-	--tty \
-	--rm \
-	--entrypoint /bin/bash \
-	beet
+  --user "$(id -u):$(id -g)" \
+  --volumes-from deluged:ro \
+  --volume "$PWD/data/clean:/clean" \
+  --volume "$PWD/config/beets:$HOME/.config/beets" \
+  --volume /etc/localtime:/etc/localtime:ro \
+  --workdir /data/downloads/completed \
+  --env HOME \
+  --interactive \
+  --tty \
+  --rm \
+  --entrypoint /bin/bash \
+    beets:${BEETS_VERSION}
